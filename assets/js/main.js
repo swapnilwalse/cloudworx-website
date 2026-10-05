@@ -1,4 +1,4 @@
-// Mobile menu toggle, footer year, and mailto-based contact form.
+// Mobile menu toggle, footer year, and contact form sent through Web3Forms.
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var links = document.getElementById('nav-links');
@@ -18,17 +18,35 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var status = document.getElementById('form-status');
+      var button = form.querySelector('button[type="submit"]');
       var f = form.elements;
-      if (!f.name.value.trim() || !f.email.checkValidity() || !f.email.value.trim() || !f.message.value.trim()) {
+      status.className = 'form-status';
+      if (!f.name.value.trim() || !f.email.value.trim() || !f.email.checkValidity() || !f.message.value.trim()) {
+        status.classList.add('error');
         status.textContent = 'Please fill in your name, a valid email and a message.';
         return;
       }
-      var subject = 'Website enquiry: ' + f.interest.value + (f.company.value ? ' (' + f.company.value + ')' : '');
-      var body = 'Name: ' + f.name.value + '\nEmail: ' + f.email.value + '\nCompany: ' + f.company.value +
-        '\nInterested in: ' + f.interest.value + '\n\n' + f.message.value;
-      window.location.href = 'mailto:' + form.dataset.email + '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-      status.textContent = 'Opening your email app…';
+      var data = new FormData(form);
+      data.append('subject', 'Website enquiry: ' + f.interest.value + (f.company.value ? ' (' + f.company.value + ')' : ''));
+      data.append('replyto', f.email.value);
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (res) {
+          if (res.success) {
+            form.reset();
+            status.classList.add('success');
+            status.textContent = 'Thank you! Your message has been sent. We will be in touch soon.';
+          } else {
+            throw new Error(res.message || 'Send failed');
+          }
+        })
+        .catch(function () {
+          status.classList.add('error');
+          status.innerHTML = 'Sorry, your message could not be sent. Please email us at <a href="mailto:info@cloudworx.in">info@cloudworx.in</a>.';
+        })
+        .then(function () { button.disabled = false; });
     });
   }
 })();

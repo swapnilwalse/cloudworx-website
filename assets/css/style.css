@@ -214,3 +214,7 @@ textarea { min-height: 140px; resize: vertical; }
   .brand svg { height: 38px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+.hp { display: none !important; }
+.form-status.error { color: #C62828; }
+.form-status.success { color: #1B7F4B; }
+button[disabled] { opacity: .6; cursor: wait; }

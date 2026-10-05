@@ -50,7 +50,10 @@
           <div class="contact-item"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><strong>Office</strong><span>Cloudworx Alpha Pvt Ltd<br>F-901 Malpani Greens, Kaspate Vasti, Wakad, Pune 411057</span></div></div>
           <div class="contact-item"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><div><strong>Company</strong><span>CIN U72900MH2022PTC380416</span></div></div>
         </div>
-        <form class="card" id="contact-form" data-email="info@cloudworx.in" novalidate>
+        <form class="card" id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="418dc3aa-b492-4b07-bd92-45a0e8e7a758">
+          <input type="hidden" name="from_name" value="cloudworx.in website">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="field-row">
             <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
             <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
@@ -65,7 +68,7 @@
           </div>
           <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" required></textarea></div>
           <button class="btn btn-primary" type="submit" style="align-self:flex-start">Send message</button>
-          <p class="form-note">Sending opens your email app with your message ready to go.</p>
+          <p class="form-note">We usually reply within one working day.</p>
           <p class="form-status" id="form-status" role="status"></p>
         </form>
       </div>
